@@ -1,16 +1,11 @@
-version: '3.8'
 services:
-  db:
-    build: .
+  mysql:
+    image: mysql:8.0
     container_name: mysqlDB2
+    environment:
+      MYSQL_DATABASE: mysqlD2
+      MYSQL_USER: root
+      MYSQL_PASSWORD: 1234
+      MYSQL_ROOT_PASSWORD: 1234
     ports:
       - "3307:3306"
-    volumes:
-      - db_data:/var/lib/mysql
-      - ./backups:/backups
-    environment:
-      MYSQL_ROOT_PASSWORD: 1234
-      MYSQL_DATABASE: mysqlD2
-
-volumes:
-  db_data:
