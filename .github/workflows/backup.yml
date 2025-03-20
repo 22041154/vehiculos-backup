@@ -1,0 +1,37 @@
+name: Vehiculos DB Backup
+
+on:
+  workflow_dispatch:
+
+jobs:
+  backup:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout del código
+      uses: actions/checkout@v3
+
+    - name: Configurar Docker
+      uses: docker/setup-buildx-action@v2
+
+    - name: Construir y levantar el contenedor
+      working-directory: ./
+      run: docker compose up -d --build
+
+    - name: Ejecutar backup cada 15 segundos
+      working-directory: ./backups
+      run: |
+        chmod +x backup.sh
+        while true; do
+          ./backup.sh
+          sleep 15
+        done &
+
+    - name: Guardar respaldos en GitHub
+      uses: actions/upload-artifact@v3
+      with:
+        name: vehiculos-backup
+        path: backups/
+
+    - name: Apagar el contenedor
+      run: docker-compose down
