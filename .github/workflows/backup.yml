@@ -25,7 +25,7 @@ jobs:
         ./backups/backup.sh
 
     - name: Guardar respaldos en GitHub
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: vehiculos-backup
         path: backups/*.sql
