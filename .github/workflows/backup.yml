@@ -2,7 +2,7 @@ name: Vehiculos DB Backup
 
 on:
   schedule:
-    - cron: "*/15 * * * *"  # Todos los días a medianoche
+    - cron: "*/15 * * * *"
   workflow_dispatch:
 
 jobs:
